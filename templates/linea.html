@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>TELMOADSI</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/main.css')}}">
+    
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="/">TELMOADSI</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/registrar_equipo">Registrar Equipo</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Buscar Equipo</a>
+                </li>
+
+                </ul>
+            </div>
+    </nav>
+    <div class="row pt-4">
+        <div class="col-md-5">
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                {% for message in messages %}
+                
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{message}}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                {% endfor %}
+                {% endif %}
+                {% endwith%}
+        <div class="card card-body ">
+            <form method="POST" action="/linea">
+                <div class="form-group">
+                    <input type="number" name="linumerodelinea" placeholder="Numero de la linea" class="form-control">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="perid" placeholder="Per_id" class="form-control">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="linestado" placeholder="Estado de la Linea" class="form-control">
+                </div>
+        
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block">
+                        Guardar
+                    </button>
+                </div>
+            
+            
+            </form>
+            
+        </div>
+        </div>
+        <div class="col-md-6">
+        <table class="table table-striped table-bordered bg-white table-sm">
+                <thead>
+                    <tr>
+                        <td>Numero de la linea</td>
+                        <td>Perid</td>
+                        <td>Estado de linea</td>
+                        <td>Opciones</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for lineas in linea %}
+                    <tr>
+                        
+                        <td>{{ lineas.1}}</td>
+                        <td>{{ lineas.2}}</td>
+                        <td>{{ lineas.3}}</td>
+                  
+                        
+                        <td>
+                            <a href="/edit/{{lineas.0}}" class="btn btn-secondary">Editar</a>
+                            <a href="/delete/{{lineas.0}}" class="btn btn-danger btn-delete">Eliminar</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="{{url_for('static', filename='js/main.js')}}"></script>
+    
+</body>
+</html>
+
+
